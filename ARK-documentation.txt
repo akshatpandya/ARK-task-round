@@ -1,0 +1,57 @@
+Name: Akshat Pandya
+Email: akspandya.97@gmail.com
+ph: 7430077999
+
+PATH PLANNING
+
+Algorithm Used:
+
+I have used the A* algorithm to calculate the shortest path.
+This is a good one as it doesn't checks all the points, it only analyses the points in the direction of the destination.
+
+Algorithm:
+We create 1 graph, 2 lists.
+The graph is a 2D array, having a data type of a structure, storing the values of parent node(from_x, from_y) and the f, g, h values
+g = distance from the source through the parent node
+h = distance from the destination
+f = g+h
+
+initially for every point except the source we we f,g,h large values and parent node some arbitrary value.
+
+first list is open list
+-contains nodes that haven't been expanded, whose neighbours haven't been updated
+
+second list is closed list
+- contains nodes which have been marked visited
+
+we first enter the source in the open list, mark it visited and then update their neighbours' distance and parent in the graph and push each one of them in the openlist
+my open list is set container that automatically sorts the nodes in the openlist in ascending order according to the distance f.
+
+we go on doing this until we reach destination.
+on reaching destination we start backtracing the path, using the parent node value that we stored for each node.
+
+
+
+Problems Faced:
+
+1) In starting I hadn't used STL containers and used used for loop each time to search for the smallest distance node in the open list which literally took more than 1 min to give the path.
+Solved: I read about priority list and set containers on cplusplus.com and then used them in my program, since it keep the list sorted it reduced the time significantly.
+
+2) There were a lot of time when I got segmentation faults, due to accessing invalid memory.
+Solved: One way was to do standard procedure of commenting out and printing at different places.
+then I searched about this problem and from stackflow.com is read about gbd which tell which line the program got the segmentation fault which makes it easier, though still I don't fully know how to use it.
+
+3) I had a problem in passing 2 aray to a fuction. I passed a pointer to a pointer but that didn't work and I wasn't able to figure out why.
+That is why my code may be a bit lengthy as I had to do everything in the same function.
+
+ADVANCED PATH PLANNING
+
+Algorithm Used:
+SInce we need our bots to reach the destination together. I used this fact and used the algorithm that, till some common point which should be as close to the bots as possible, the bots take their own shortest path and then from there to the destination the follow the same path.
+I implemented this by using A* to calculate the 3 smallest distances.
+My program will make the bots reach simultaneously if they can alter their speeds and reach the common point together.
+*We can use multithreading to implement this where there are 2 threads which calculate the indivisual distances and wait till the bots have reached the common point and then they join and the common path starts.
+
+In this case, the path overlap or co-incide, to avoid this I was thinking we can find shortest path for one of the bots first and then mark it as an abstacle and then find path for the second, this way they wont collide and we can calculate the distance of the paths and accordingly manage the speed of the bots to make them reach together.
+
+ 
